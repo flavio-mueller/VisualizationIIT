@@ -38,7 +38,7 @@ var lensParams = {
     magAddition: 1
 };
 var baseTextSize = 20;
-var border = 150;
+var border = 200;
 
 var fontForChar = 'Arial';
 var fontForSpecialChar = 'Arial Black';
@@ -58,7 +58,7 @@ function preload() {
 function setup() {
     createCanvas(windowWidth, windowHeight);
     translate((windowWidth - width) / 2, (windowHeight - height) / 2);
-    initSetupsForCharsGrid(7, 7);
+    initSetupsForCharsGrid(5, 7);
 }
 
 function draw() {
@@ -70,7 +70,7 @@ function draw() {
 }
 
 function mousePressed() {
-    lensParams.magAddition = 3;
+    lensParams.magAddition = 2;
 }
 
 function mouseReleased() {
@@ -107,7 +107,7 @@ function initSetupsForCharsGrid(rowCount, colCount) {
     gridSurf.traverse(function (x, y, index) {
         if (index > posForCenterText && centersText.length) {
             charsArr.push(new CharNode(x + (isRandShiftPos ? random(-5, 5) : 0), y + (isRandShiftPos ? random(-5, 5) : 0), centersText.shift(), baseTextSize + 80, fontForSpecialChar));
-            charsArr[index].clr = '#F00';
+            charsArr[index].clr = '#d1460e';
             charsArr[index].lensRadius = isRandLensAmount ? random(30, 120) : lensParams.radius;
         } else {
             charsArr.push(new CharNode(x + (isRandShiftPos ? random(-5, 5) : 0), y + (isRandShiftPos ? random(-5, 5) : 0), "Flavio Mueller", baseTextSize, fontForChar));

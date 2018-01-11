@@ -65,13 +65,19 @@ CharNode.prototype.drawLine = function () {
 CharNode.prototype.drawChar = function () {
     if (!(this.char == ' ' && !this.isDrawEmptyChar)) {
         push();
-        textAlign(CENTER, CENTER);
         fill(this.clr);
         textFont(this.fontName, this.size);
-        text(this.char, this.currPos.x, this.currPos.y);
         if (this.char != "IIT") {
-            image(img, this.currPos.x - 10, this.currPos.y - 60);
+            image(img,
+                this.currPos.x - this.size * 2.1,
+                this.currPos.y - this.size * 5.7,
+                img.width * this.size / 8,
+                img.height * this.size / 8);
+            textAlign(CENTER, CENTER);
+        } else {
+            textAlign(CENTER, BASELINE);
         }
+        text(this.char, this.currPos.x, this.currPos.y);
         pop();
     }
 
