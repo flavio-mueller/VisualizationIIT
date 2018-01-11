@@ -69,10 +69,10 @@ CharNode.prototype.drawChar = function () {
         textFont(this.fontName, this.size);
         if (this.char != "IIT") {
             image(img,
-                this.currPos.x - this.size * 2.1,
+                this.currPos.x - this.size * 2.5,
                 this.currPos.y - this.size * 5.7,
-                img.width * this.size / 8,
-                img.height * this.size / 8);
+                img.width * this.size / 50,
+                img.height * this.size / 50);
             textAlign(CENTER, CENTER);
         } else {
             textAlign(CENTER, BASELINE);
