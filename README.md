@@ -1,3 +1,3 @@
 # VisualizationIIT
 
-Works only in Firefox locally.
+Doesnt work with Chrome and Opera if started locally.
