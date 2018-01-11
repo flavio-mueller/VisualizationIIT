@@ -38,7 +38,7 @@ var lensParams = {
     magAddition: 1
 };
 var baseTextSize = 20;
-var border = 300;
+var border = 150;
 
 var fontForChar = 'Arial';
 var fontForSpecialChar = 'Arial Black';
@@ -48,10 +48,17 @@ var textForRandomChars = ["FLAVIOMUELLER"];
 var charsArr = [];
 var gridSurf;
 
+var img;
+
+
+function preload() {
+    img = loadImage("images/person.png");
+}
+
 function setup() {
     createCanvas(windowWidth, windowHeight);
     translate((windowWidth - width) / 2, (windowHeight - height) / 2);
-    initSetupsForCharsGrid(7, 7, centersText[0], textForRandomChars[0]);
+    initSetupsForCharsGrid(7, 7);
 }
 
 function draw() {
@@ -70,50 +77,17 @@ function mouseReleased() {
     lensParams.magAddition = 1;
 }
 
-//function keyPressed() {
-//    switch (key.toLowerCase()) {
-//        case 'a': {
-//            initSetupsForCharsGrid(random(5, 35), random(5, 35), centersText[~~random(centersText.length)], textForRandomChars[~~random(textForRandomChars.length)]);
-//            break;
-//        }
-//        case 'x': {
-//            isRandShiftPos = true;
-//            gridSurf.traverse(function (x, y, index) {
-//                charsArr[index].setPos(x + random(-5, 5), y + random(-5, 5));
-//            });
-//            break;
-//        }
-//        case 'z': {
-//            isRandLensAmount = true;
-//            gridSurf.traverse(function (x, y, index) {
-//                charsArr[index].lensRadius = random(30, 120);
-//            });
-//            break;
-//        }
-//        case 'c': {
-//            isRandLensAmount = false;
-//            isRandShiftPos = false;
-//            gridSurf.traverse(function (x, y, index) {
-//                charsArr[index].setPos(x, y);
-//                charsArr[index].lensRadius = lensParams.radius;
-//            });
-//            break;
-//        }
-//    }
-//}
-
-function initSetupsForCharsGrid(rowCount, colCount, centerText, strForRandomChars) {
+function initSetupsForCharsGrid(rowCount, colCount) {
     rowCount = ~~rowCount;
     colCount = ~~colCount;
     charsArr.length = 0;
-    centerText = centersText;/*centerText.split('');*/
 
     // for properly colCount size for centering text in horizontal position
-    if (colCount != centerText.length && (colCount - centerText.length) % 2 != 0) {
+    if (colCount != centersText.length && (colCount - centersText.length) % 2 != 0) {
         ++colCount;
     }
-    if (colCount < centerText.length) {
-        colCount = centerText.length;
+    if (colCount < centersText.length) {
+        colCount = centersText.length;
     }
 
     // for properly rowCount size for centering text in vertical position
@@ -128,11 +102,11 @@ function initSetupsForCharsGrid(rowCount, colCount, centerText, strForRandomChar
     }
 
     // for visually centering text in chars rect
-    var posForCenterText = ~~((gridSurf.rowCount - 1) / 2) * gridSurf.colCount - 1 + ~~((gridSurf.colCount - centerText.length) / 2);
+    var posForCenterText = ~~((gridSurf.rowCount - 1) / 2) * gridSurf.colCount - 1 + ~~((gridSurf.colCount - centersText.length) / 2);
 
     gridSurf.traverse(function (x, y, index) {
-        if (index > posForCenterText && centerText.length) {
-            charsArr.push(new CharNode(x + (isRandShiftPos ? random(-5, 5) : 0), y + (isRandShiftPos ? random(-5, 5) : 0), centerText.shift(), baseTextSize + 80, fontForSpecialChar));
+        if (index > posForCenterText && centersText.length) {
+            charsArr.push(new CharNode(x + (isRandShiftPos ? random(-5, 5) : 0), y + (isRandShiftPos ? random(-5, 5) : 0), centersText.shift(), baseTextSize + 80, fontForSpecialChar));
             charsArr[index].clr = '#F00';
             charsArr[index].lensRadius = isRandLensAmount ? random(30, 120) : lensParams.radius;
         } else {
