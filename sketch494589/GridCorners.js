@@ -37,7 +37,7 @@ GridCorners.prototype.traverse = function (inFuncToExec) {
 
 GridCorners.prototype.drawBorder = function(color) {
   push();
-  stroke(color || 0);
+  stroke(color || 100);
   noFill();
   rect(gridSurf.startPoint.x, gridSurf.startPoint.y, gridSurf.width, gridSurf.height);
   pop();

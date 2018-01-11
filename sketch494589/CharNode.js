@@ -2,14 +2,14 @@
 function CharNode (x, y, char, size, font, clr) {
   this.initPos = new Point(x, y);
   this.currPos = new Point(x, y);
-  this.char = char || randomChar();
+  this.char = char || "Flavio Müller";
   this.baseSize = size || 10;
   this.size = this.baseSize;
   this.distFromInitPos = 0;
   this.lensMag = 0;
   this.isBold = false;
   this.fontName = font || 'Arial';
-  this.clr = clr || '#000';
+  this.clr = clr || '#FFF';
   this.lensRadius = 80;
   this.isDrawEmptyChar = false;
 }
