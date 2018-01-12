@@ -78,6 +78,7 @@ function JsonLoaded(data) {
 }
 
 function draw() {
+    createCanvas(windowWidth, windowHeight);
     background(0);
     lensParams.magAmount = (lensParams.magAmount + lensParams.magAddition) / 2;
 
