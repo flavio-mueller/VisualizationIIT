@@ -56,6 +56,9 @@ var employeesIIT;
 var employeesIITname = [];
 var employeesIITimage = [];
 
+var rowCount = 1;
+var colCount = 1;
+
 
 function preload() {
     employeesJson = loadJSON("employees.json", JsonLoaded);
@@ -67,14 +70,12 @@ function setup() {
     border = windowWidth * borderMultiplier;
     lensParams.radius = windowWidth / 4.26;
     translate((windowWidth - width) / 2, (windowHeight - height) / 2);
-    initSetupsForCharsGrid(5, 7);
+    initSetupsForCharsGrid();
 }
 
 
 function JsonLoaded(data) {
     employeesIIT = data.IIT;
-    randomizeArray(employeesIIT);
-    fillEmployeesArray();
     img = loadImage("images/" + employeesIIT[Math.floor(Math.random() * employeesIIT.length)].image);
 
 }
@@ -149,24 +150,14 @@ function keyPressed() {
 }
 
 
-function initSetupsForCharsGrid(rowCount, colCount) {
-    rowCount = ~~rowCount;
-    colCount = ~~colCount;
+function initSetupsForCharsGrid() {
     charsArr.length = 0;
     centersText = ["IIT"];
 
-    // for properly colCount size for centering text in horizontal position
-    if (colCount != centersText.length && (colCount - centersText.length) % 2 != 0) {
-        ++colCount;
-    }
-    if (colCount < centersText.length) {
-        colCount = centersText.length;
-    }
+    clacRowCol();
 
-    // for properly rowCount size for centering text in vertical position
-    if (rowCount % 2 == 0) {
-        ++rowCount;
-    }
+    randomizeArray(employeesIIT);
+    fillEmployeesArray();
 
     if (!gridSurf) {
         gridSurf = new GridCorners(new Point(border, border), new Point(width - border, height - border), colCount, rowCount);
@@ -201,12 +192,95 @@ function windowResized() {
     }
     lensParams.radius = windowWidth / 4.26;
     fillEmployeesArray();
-    if (windowHeight > windowWidth) {
-        initSetupsForCharsGrid(7, 5);
-    } else {
-        initSetupsForCharsGrid(5, 7);
+    initSetupsForCharsGrid();
 
+}
+
+
+function clacRowCol() {
+    if (windowWidth < windowHeight) { //more rows than cols
+        if (employeesIIT.length < 3) {
+            rowCount = 3;
+            colCount = 1;
+            return;
+        }else if (employeesIIT.length < 9) {
+            rowCount = 3;
+            colCount = 3;
+            fillArray(8);
+            return;
+        } else if (employeesIIT.length < 15) {
+            rowCount = 5;
+            colCount = 3;
+            fillArray(14);
+            return;
+        } else if (employeesIIT.length < 25) {
+            rowCount = 5;
+            colCount = 5;
+            fillArray(24);
+            return;
+        } else if (employeesIIT.length < 35) {
+            rowCount = 7;
+            colCount = 5;
+            fillArray(34);
+            return;
+        } else if (employeesIIT.length < 49) {
+            rowCount = 7;
+            colCount = 7;
+            fillArray(48);
+            return;
+        } else if (employeesIIT.length < 63) {
+            rowCount = 9;
+            colCount = 7;
+            fillArray(62);
+            return;
+        }
+        
+    } else {
+        if (employeesIIT.length < 3) {
+            rowCount = 3;
+            colCount = 1;
+            return;
+        } else if (employeesIIT.length < 9) {
+            rowCount = 3;
+            colCount = 3;
+            fillArray(8);
+            return;
+        } else if (employeesIIT.length < 15) {
+            rowCount = 3;
+            colCount = 5;
+            fillArray(14);
+            return;
+        } else if (employeesIIT.length < 35) {
+            rowCount = 5;
+            colCount = 7;
+            fillArray(34);
+            return;
+        } else if (employeesIIT.length < 49) {
+            rowCount = 7;
+            colCount = 7;
+            fillArray(48);
+            return;
+        } else if (employeesIIT.length < 63) {
+            rowCount = 7;
+            colCount = 9;
+            fillArray(62);
+            return;
+        }
+        
     }
+}
+
+
+function fillArray(lengthToBe) {
+   if (employeesIIT.length == lengthToBe) {
+       return;
+   } else if (employeesIIT.length < lengthToBe) {
+       for (var i = employeesIIT.length; i < lengthToBe; i++) {
+           append(employeesIIT, "");
+       }
+   } else {
+       throw new exception("Cant fill Array whith this length");
+   }
 }
 
 

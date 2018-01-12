@@ -2,7 +2,7 @@
 function CharNode(x, y, char, size, font, clr) {
     this.initPos = new Point(x, y);
     this.currPos = new Point(x, y);
-    this.char = char || "Flavio Müller";
+    this.char = char || " ";
     this.baseSize = size || 10;
     this.size = this.baseSize;
     this.distFromInitPos = 0;
