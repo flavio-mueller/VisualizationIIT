@@ -1,0 +1,26 @@
+{
+  "IIT": [
+    {
+      "name": "Flavio Mueller",
+      "image": "person.png"
+    },
+    {
+      "name": "Fiona Nueesch",
+      "image": "person.png"
+    },
+    {
+      "name": "Doris Agotai",
+      "image": "person.png"
+
+    },
+    {
+      "name": "Ulrike Schoch",
+      "image": "person.png"
+    },
+    {
+      "name": "Max Mustermann",
+      "image": "person.png" 
+    }
+  ]
+
+}
