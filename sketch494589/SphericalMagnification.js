@@ -37,8 +37,10 @@ var lensParams = {
     magAmount: 2,
     magAddition: 1
 };
-var baseTextSize = 20;
-var border = 200;
+var baseTextSize;
+var baseTextSizeMultiplier = 0.011;
+var border;
+var borderMultiplier = 0.124;
 
 var fontForChar = 'Arial';
 var fontForSpecialChar = 'Arial Black';
@@ -61,6 +63,9 @@ function preload() {
 
 function setup() {
     createCanvas(windowWidth, windowHeight);
+    baseTextSize = windowWidth * baseTextSizeMultiplier;
+    border = windowWidth * borderMultiplier;
+    lensParams.radius = windowWidth / 4.26;
     translate((windowWidth - width) / 2, (windowHeight - height) / 2);
     initSetupsForCharsGrid(5, 7);
 }
@@ -174,14 +179,34 @@ function initSetupsForCharsGrid(rowCount, colCount) {
 
     gridSurf.traverse(function (x, y, index) {
         if (index > posForCenterText && centersText.length) {
-            charsArr.push(new CharNode(x + (isRandShiftPos ? random(-20, 20) : 0), y + (isRandShiftPos ? random(-20, 20) : 0), centersText.shift(), baseTextSize + 80, fontForSpecialChar));
+            charsArr.push(new CharNode(x + (isRandShiftPos ? random(-20, 20) : 0), y + (isRandShiftPos ? random(-20, 20) : 0), centersText.shift(), baseTextSize + baseTextSize * 4, fontForSpecialChar));
             charsArr[index].clr = '#d1460e';
-            charsArr[index].lensRadius = isRandLensAmount ? random(30, 120) : lensParams.radius;
+            charsArr[index].lensRadius = isRandLensAmount ? random(300, 700) : lensParams.radius;
         } else {
             charsArr.push(new CharNode(x + (isRandShiftPos ? random(-20, 20) : 0), y + (isRandShiftPos ? random(-20, 20) : 0), employeesIITname.shift(), baseTextSize, fontForChar));
-            charsArr[index].lensRadius = isRandLensAmount ? random(20, 80) : lensParams.radius;
+            charsArr[index].lensRadius = isRandLensAmount ? random(300, 700) : lensParams.radius;
         }
     });
+}
+
+
+function windowResized() {
+    createCanvas(windowWidth, windowHeight);
+    if (windowHeight * 1.9 > windowWidth) {
+        baseTextSize = windowWidth * baseTextSizeMultiplier;
+        border = windowWidth * borderMultiplier;
+    } else {
+        baseTextSize = windowHeight * baseTextSizeMultiplier;
+        border = windowHeight * borderMultiplier;
+    }
+    lensParams.radius = windowWidth / 4.26;
+    fillEmployeesArray();
+    if (windowHeight > windowWidth) {
+        initSetupsForCharsGrid(7, 5);
+    } else {
+        initSetupsForCharsGrid(5, 7);
+
+    }
 }
 
 
