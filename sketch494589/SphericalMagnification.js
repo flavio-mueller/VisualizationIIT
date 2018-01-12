@@ -68,13 +68,27 @@ function setup() {
 
 function JsonLoaded(data) {
     employeesIIT = data.IIT;
+    randomizeArray(employeesIIT);
+    fillEmployeesArray();
+    img = loadImage("images/" + employeesIIT[Math.floor(Math.random() * employeesIIT.length)].image);
+
+}
+
+function fillEmployeesArray() {
     employeesIIT.forEach(function (element) {
         append(employeesIITname, element.name);
         append(employeesIITimage, element.image);
     });
-    console.debug(employeesIITimage);
-    img = loadImage("images/" + employeesIIT[Math.floor(Math.random() * employeesIIT.length)].image);
+}
 
+function randomizeArray(a) {
+    var j, x, i;
+    for (i = a.length - 1; i > 0; i--) {
+        j = Math.floor(Math.random() * (i + 1));
+        x = a[i];
+        a[i] = a[j];
+        a[j] = x;
+    }
 }
 
 function draw() {
@@ -96,21 +110,24 @@ function mouseReleased() {
 
 function keyPressed() {
     switch (key.toLowerCase()) {
-        case 'a': {
-            initSetupsForCharsGrid(5, 7);
-            break;
-        }
+        case 'a':
+            {
+                randomizeArray(employeesIIT);
+                fillEmployeesArray();
+                initSetupsForCharsGrid(5, 7);
+                break;
+            }
         case 'x': {
             isRandShiftPos = true;
             gridSurf.traverse(function (x, y, index) {
-                charsArr[index].setPos(x + random(-5, 5), y + random(-5, 5));
+                charsArr[index].setPos(x + random(-20, 20), y + random(-20, 20));
             });
             break;
         }
         case 'z': {
             isRandLensAmount = true;
             gridSurf.traverse(function (x, y, index) {
-                charsArr[index].lensRadius = random(30, 120);
+                charsArr[index].lensRadius = random(300, 700);
             });
             break;
         }
@@ -131,6 +148,7 @@ function initSetupsForCharsGrid(rowCount, colCount) {
     rowCount = ~~rowCount;
     colCount = ~~colCount;
     charsArr.length = 0;
+    centersText = ["IIT"];
 
     // for properly colCount size for centering text in horizontal position
     if (colCount != centersText.length && (colCount - centersText.length) % 2 != 0) {
@@ -156,11 +174,11 @@ function initSetupsForCharsGrid(rowCount, colCount) {
 
     gridSurf.traverse(function (x, y, index) {
         if (index > posForCenterText && centersText.length) {
-            charsArr.push(new CharNode(x + (isRandShiftPos ? random(-5, 5) : 0), y + (isRandShiftPos ? random(-5, 5) : 0), centersText.shift(), baseTextSize + 80, fontForSpecialChar));
+            charsArr.push(new CharNode(x + (isRandShiftPos ? random(-20, 20) : 0), y + (isRandShiftPos ? random(-20, 20) : 0), centersText.shift(), baseTextSize + 80, fontForSpecialChar));
             charsArr[index].clr = '#d1460e';
             charsArr[index].lensRadius = isRandLensAmount ? random(30, 120) : lensParams.radius;
         } else {
-            charsArr.push(new CharNode(x + (isRandShiftPos ? random(-5, 5) : 0), y + (isRandShiftPos ? random(-5, 5) : 0), employeesIITname.shift(), baseTextSize, fontForChar));
+            charsArr.push(new CharNode(x + (isRandShiftPos ? random(-20, 20) : 0), y + (isRandShiftPos ? random(-20, 20) : 0), employeesIITname.shift(), baseTextSize, fontForChar));
             charsArr[index].lensRadius = isRandLensAmount ? random(20, 80) : lensParams.radius;
         }
     });
