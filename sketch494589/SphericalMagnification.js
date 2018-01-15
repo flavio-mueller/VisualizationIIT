@@ -51,17 +51,22 @@ var charsArr = [];
 var gridSurf;
 
 var img;
+var logo;
 var employeesJson;
-var employeesIIT;
+var employeesIIT = [];
+var employeesIITFitted = [];
 var employeesIITname = [];
 var employeesIITimage = [];
 
 var rowCount = 1;
 var colCount = 1;
+var employees;
+
 
 
 function preload() {
     employeesJson = loadJSON("employees.json", JsonLoaded);
+    logo = loadImage("images/IIT_logo.png");
 }
 
 function setup() {
@@ -70,18 +75,23 @@ function setup() {
     border = windowWidth * borderMultiplier;
     lensParams.radius = windowWidth / 4.26;
     translate((windowWidth - width) / 2, (windowHeight - height) / 2);
-    initSetupsForCharsGrid();
+    initSetupsForCharsGrid(true);
 }
 
 
 function JsonLoaded(data) {
     employeesIIT = data.IIT;
-    img = loadImage("images/" + employeesIIT[Math.floor(Math.random() * employeesIIT.length)].image);
-
+    employees = employeesIIT.length;
+    for (var i = employeesIIT.length; i < 80; i++) {
+        append(employeesIIT, { "name": "", "image": "person.png" });
+    }
+    img = loadImage("images/person.png");
 }
 
 function fillEmployeesArray() {
-    employeesIIT.forEach(function (element) {
+    employeesIITname = [];
+    employeesIITimage = [];
+    employeesIITFitted.forEach(function (element) {
         append(employeesIITname, element.name);
         append(employeesIITimage, element.image);
     });
@@ -118,9 +128,9 @@ function keyPressed() {
     switch (key.toLowerCase()) {
         case 'a':
             {
-                randomizeArray(employeesIIT);
+                randomizeArray(employeesIITFitted);
                 fillEmployeesArray();
-                initSetupsForCharsGrid(5, 7);
+                initSetupsForCharsGrid(true);
                 break;
             }
         case 'x': {
@@ -150,13 +160,16 @@ function keyPressed() {
 }
 
 
-function initSetupsForCharsGrid() {
+function initSetupsForCharsGrid(randomize) {
     charsArr.length = 0;
-    centersText = ["IIT"];
+    centersText = ["Center"];
 
-    clacRowCol();
+    calcRowCol();
 
-    randomizeArray(employeesIIT);
+    if (randomize == true) {
+        randomizeArray(employeesIITFitted);
+    }
+
     fillEmployeesArray();
 
     if (!gridSurf) {
@@ -167,6 +180,8 @@ function initSetupsForCharsGrid() {
 
     // for visually centering text in chars rect
     var posForCenterText = ~~((gridSurf.rowCount - 1) / 2) * gridSurf.colCount - 1 + ~~((gridSurf.colCount - centersText.length) / 2);
+
+    console.debug(employeesIITname);
 
     gridSurf.traverse(function (x, y, index) {
         if (index > posForCenterText && centersText.length) {
@@ -183,104 +198,118 @@ function initSetupsForCharsGrid() {
 
 function windowResized() {
     createCanvas(windowWidth, windowHeight);
-    if (windowHeight * 1.9 > windowWidth) {
-        baseTextSize = windowWidth * baseTextSizeMultiplier;
-        border = windowWidth * borderMultiplier;
-    } else {
-        baseTextSize = windowHeight * baseTextSizeMultiplier;
-        border = windowHeight * borderMultiplier;
-    }
     lensParams.radius = windowWidth / 4.26;
-    fillEmployeesArray();
-    initSetupsForCharsGrid();
-
+    initSetupsForCharsGrid(false);
 }
 
 
-function clacRowCol() {
-    if (windowWidth < windowHeight) { //more rows than cols
-        if (employeesIIT.length < 3) {
-            rowCount = 3;
-            colCount = 1;
-            return;
-        }else if (employeesIIT.length < 9) {
-            rowCount = 3;
-            colCount = 3;
-            fillArray(8);
-            return;
-        } else if (employeesIIT.length < 15) {
-            rowCount = 5;
-            colCount = 3;
-            fillArray(14);
-            return;
-        } else if (employeesIIT.length < 25) {
-            rowCount = 5;
+function calcRowCol() {
+    var ratio = windowWidth / windowHeight;
+
+    if (ratio > 1.7) { //vier differenz
+        if (employees < 5) {
             colCount = 5;
-            fillArray(24);
-            return;
-        } else if (employeesIIT.length < 35) {
-            rowCount = 7;
-            colCount = 5;
-            fillArray(34);
-            return;
-        } else if (employeesIIT.length < 49) {
-            rowCount = 7;
+            rowCount = 1;
+            fillArray(4);
+        } else if (employees < 21) {
             colCount = 7;
-            fillArray(48);
-            return;
-        } else if (employeesIIT.length < 63) {
-            rowCount = 9;
-            colCount = 7;
-            fillArray(62);
-            return;
-        }
-        
-    } else {
-        if (employeesIIT.length < 3) {
             rowCount = 3;
-            colCount = 1;
-            return;
-        } else if (employeesIIT.length < 9) {
-            rowCount = 3;
-            colCount = 3;
-            fillArray(8);
-            return;
-        } else if (employeesIIT.length < 15) {
-            rowCount = 3;
-            colCount = 5;
-            fillArray(14);
-            return;
-        } else if (employeesIIT.length < 35) {
-            rowCount = 5;
-            colCount = 7;
-            fillArray(34);
-            return;
-        } else if (employeesIIT.length < 49) {
-            rowCount = 7;
-            colCount = 7;
-            fillArray(48);
-            return;
-        } else if (employeesIIT.length < 63) {
-            rowCount = 7;
+            fillArray(20);
+        } else if (employees < 45) {
             colCount = 9;
-            fillArray(62);
-            return;
+            rowCount = 5;
+            fillArray(44);
+        } else if (employees < 77) {
+            colCount = 11;
+            rowCount = 7;
+            fillArray(76);
+        } else {
+            colCount = 13;
+            rowCount = 9;
+            fillArray(117);
         }
-        
+    } else if (ratio > 1.2) { //zwei differenz
+        if (employees < 15) {
+            colCount = 5;
+            rowCount = 3;
+            fillArray(14);
+        } else if (employees < 45) {
+            colCount = 7;
+            rowCount = 5;
+            fillArray(44);
+        } else if (employees < 63) {
+            colCount = 9;
+            rowCount = 7;
+            fillArray(62);
+        } else {
+            colCount = 11;
+            rowCount = 9;
+            fillArray(98);
+        }
+    } else if (ratio > 0.85) {
+        if (employees < 9) {
+            colCount = rowCount = 3;
+            fillArray(8);
+        } else if (employees < 25) {
+            colCount = rowCount = 5;
+            fillArray(24);
+        }
+        else if (employees < 49) {
+            colCount = rowCount = 7;
+            fillArray(48);
+        } else {
+            colCount = rowCount = 9;
+            fillArray(80);
+        }
+
+    } else if (ratio > 0.56) {
+        if (employees < 15) {
+            colCount = 3;
+            rowCount = 5;
+            fillArray(14);
+        } else if (employees < 45) {
+            colCount = 5;
+            rowCount = 7;
+            fillArray(44);
+        } else if (employees < 63) {
+            colCount = 7;
+            rowCount = 9;
+            fillArray(62);
+        } else {
+            colCount = 9;
+            rowCount = 11;
+            fillArray(98);
+        }
+    } else {
+        if (employees < 5) {
+            colCount = 1;
+            rowCount = 5;
+            fillArray(4);
+        } else if (employees < 21) {
+            colCount = 3;
+            rowCount = 7;
+            fillArray(20);
+        } else if (employees < 45) {
+            colCount = 5;
+            rowCount = 9;
+            fillArray(44);
+        } else if (employees < 77) {
+            colCount = 7;
+            rowCount = 11;
+            fillArray(76);
+        } else {
+            colCount = 9;
+            rowCount = 13;
+            fillArray(117);
+        }
     }
 }
+
 
 
 function fillArray(lengthToBe) {
-   if (employeesIIT.length == lengthToBe) {
-       return;
-   } else if (employeesIIT.length < lengthToBe) {
-       for (var i = employeesIIT.length; i < lengthToBe; i++) {
-           append(employeesIIT, "");
-       }
-   } else {
-       throw new exception("Cant fill Array whith this length");
-   }
+    console.debug(employeesIITFitted);
+    employeesIITFitted = employeesIIT.slice(0, lengthToBe);
 }
 
 

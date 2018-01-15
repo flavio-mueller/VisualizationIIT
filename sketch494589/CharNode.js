@@ -2,7 +2,7 @@
 function CharNode(x, y, char, size, font, clr) {
     this.initPos = new Point(x, y);
     this.currPos = new Point(x, y);
-    this.char = char || " ";
+    this.char = char || "";
     this.baseSize = size || 10;
     this.size = this.baseSize;
     this.distFromInitPos = 0;
@@ -67,17 +67,21 @@ CharNode.prototype.drawChar = function () {
         push();
         fill(this.clr);
         textFont(this.fontName, this.size);
-        if (this.char != "IIT") {
+        if (this.char != "Center") {
             image(img,
                 this.currPos.x - this.size * 2.5,
                 this.currPos.y - this.size * 5.7,
                 img.width * this.size / 50,
                 img.height * this.size / 50);
-            textAlign(CENTER, CENTER);
+            textAlign(CENTER, TOP);
+            text(this.char, this.currPos.x, this.currPos.y);
         } else {
-            textAlign(CENTER, BASELINE);
+            image(logo,
+                this.currPos.x - this.size,
+                this.currPos.y - this.size * 1.45,
+                img.width * this.size / 130,
+                img.height * this.size / 130);
         }
-        text(this.char, this.currPos.x, this.currPos.y);
         pop();
     }
 
