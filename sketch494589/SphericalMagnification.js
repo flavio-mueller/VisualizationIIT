@@ -74,6 +74,7 @@ function preload() {
 
 function setup() {
     windowResized();
+    lensParams.radius = 450;
     translate((windowWidth - width) / 2, (windowHeight - height) / 2);
     initSetupsForCharsGrid(true);
 }
@@ -192,7 +193,6 @@ function initSetupsForCharsGrid(randomize) {
 
 function windowResized() {
     createCanvas(windowWidth, windowHeight);
-    lensParams.radius = windowWidth / 4.26;
     verticalBorder = windowHeight / 5;
     horizontalBoder = windowWidth / 5;
     if (calcRowCol()) {
