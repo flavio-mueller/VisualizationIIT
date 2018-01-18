@@ -66,23 +66,23 @@ CharNode.prototype.drawLine = function () {
 CharNode.prototype.drawChar = function () {
     if (!(this.char == ' ' && !this.isDrawEmptyChar)) {
         push();
-        imageMode(CENTER);
+        imageMode(CENTER, CENTER);
         fill(this.clr);
-        textFont(this.fontName, this.size);
+        textFont(this.fontName, this.size * 0.75);
         if (this.char != "Center") {
             image(this.img,
                 this.currPos.x,
                 this.currPos.y - this.size * 1.5,
-                this.size*5.5,
-                this.size*5.5);
+                this.size * 5.5,
+                this.size * 5.5);
             textAlign(CENTER, TOP);
             text(this.char, this.currPos.x, this.currPos.y + this.size * 1.5);
         } else {
             image(this.img,
                 this.currPos.x,
-                this.currPos.y,
-                this.size*2,
-                this.size*2);
+                this.currPos.y - this.size/3,
+                this.size * 2,
+                this.size * 2);
         }
         pop();
     }

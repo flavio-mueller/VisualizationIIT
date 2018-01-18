@@ -39,8 +39,8 @@ var lensParams = {
 };
 var baseTextSize;
 var baseTextSizeMultiplier = 0.011;
-var border;
-var borderMultiplier = 0.124;
+var horizontalBoder;
+var verticalBorder;
 
 var fontForChar = 'Arial';
 var fontForSpecialChar = 'Arial Black';
@@ -76,7 +76,8 @@ function preload() {
 function setup() {
     createCanvas(windowWidth, windowHeight);
     baseTextSize = windowWidth * baseTextSizeMultiplier;
-    border = windowWidth * borderMultiplier;
+    verticalBorder = windowHeight / 5;
+    horizontalBoder = windowWidth / 5;
     lensParams.radius = windowWidth / 4.26;
     translate((windowWidth - width) / 2, (windowHeight - height) / 2);
     initSetupsForCharsGrid(true);
@@ -169,15 +170,14 @@ function initSetupsForCharsGrid() {
 
     if (calcRowCol()) {
         randomizeArray(employeesIITFitted);
-        console.debug("row or col changed");
     }
 
     fillEmployeesArray();
 
     if (!gridSurf) {
-        gridSurf = new GridCorners(new Point(border, border), new Point(width - border, height - border), colCount, rowCount);
+        gridSurf = new GridCorners(new Point(horizontalBoder, verticalBorder), new Point(width - horizontalBoder, height - verticalBorder), colCount, rowCount);
     } else {
-        gridSurf.reset(new Point(border, border), new Point(width - border, height - border), colCount, rowCount);
+        gridSurf.reset(new Point(horizontalBoder, verticalBorder), new Point(width - horizontalBoder, height - verticalBorder), colCount, rowCount);
     }
 
     // for visually centering text in chars rect
@@ -200,7 +200,8 @@ function initSetupsForCharsGrid() {
 function windowResized() {
     createCanvas(windowWidth, windowHeight);
     lensParams.radius = windowWidth / 4.26;
-    border = windowWidth * borderMultiplier;
+    verticalBorder = windowHeight / 5;
+    horizontalBoder = windowWidth / 5;
     initSetupsForCharsGrid(true);
 }
 
