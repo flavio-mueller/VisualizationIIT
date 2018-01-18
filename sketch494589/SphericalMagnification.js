@@ -1,3 +1,5 @@
+//#region credits
+
 //////////////////////////////////////////////////////////////////////////
 //                       //                                             //
 //   -~=Manoylov AC=~-   //      Spherical text magnification           //
@@ -30,57 +32,63 @@
 //
 // without additional features this code will be much shorter
 
+//#endregion
+
+//bools for button
 var isRandShiftPos = false;
 var isRandLensAmount = false;
+
+//lensParamenter
 var lensParams = {
     radius: 450,
     magAmount: 2,
     magAddition: 1
 };
-var baseTextSize = 20;
+
+//border Parameters
 var horizontalBoder;
 var verticalBorder;
 
+//font
 var fontForChar = 'Arial';
-var fontForSpecialChar = 'Arial Black';
-var centersText = ['IIT'];
-var textForRandomChars = ["FLAVIOMUELLER"];
 
+//helper
 var charsArr = [];
 var gridSurf;
-
-var img;
-var img2;
+var employees;
 var logo;
+
+//Json Arrays
 var employeesJson;
 var employeesIIT = [];
 var employeesIITFitted = [];
 var employeesIITname = [];
 var employeesIITimage = [];
 
+//row and Col Counter
 var rowCount = 1;
 var colCount = 1;
-var employees;
 var rowCountOld;
 var colCountOld;
 
 
 
-function preload() {
-    employeesJson = loadJSON("employees.json", JsonLoaded);
-    logo = loadImage("images/IIT_logo.png");
-    img2 = loadImage("images/FlavioMueller.jpg");
+//Helper Classes
+// Point Class
+function Point(x, y) {
+    this.x = x;
+    this.y = y;
 }
 
-function setup() {
-    windowResized();
-    lensParams.radius = 450;
-    translate((windowWidth - width) / 2, (windowHeight - height) / 2);
-    initSetupsForCharsGrid(true);
-}
+Point.prototype.reset = function (x, y) {
+    this.constructor(x, y);
+};
 
 
+
+//private helper methods
 function JsonLoaded(data) {
+    "use strict";
     employeesIIT = data.IIT;
     employees = employeesIIT.length;
     for (var i = employeesIIT.length; i < 80; i++) {
@@ -107,57 +115,6 @@ function randomizeArray(a) {
     }
 }
 
-function draw() {
-    createCanvas(windowWidth, windowHeight);
-    background(0);
-    lensParams.magAmount = (lensParams.magAmount + lensParams.magAddition) / 2;
-
-    charsArr.forEach(function (charNodeItem) { charNodeItem.calcNewPos().drawLine(); });
-    charsArr.forEach(function (charNodeItem) { charNodeItem.drawChar(); });
-}
-
-function mousePressed() {
-    lensParams.magAddition = 2;
-}
-
-function mouseReleased() {
-    lensParams.magAddition = 1;
-}
-
-function keyPressed() {
-    switch (key.toLowerCase()) {
-        case 'a':
-            {
-                initSetupsForCharsGrid(true);
-                break;
-            }
-        case 'x': {
-            isRandShiftPos = true;
-            gridSurf.traverse(function (x, y, index) {
-                charsArr[index].setPos(x + random(-20, 20), y + random(-20, 20));
-            });
-            break;
-        }
-        case 'z': {
-            isRandLensAmount = true;
-            gridSurf.traverse(function (x, y, index) {
-                charsArr[index].lensRadius = random(300, 700);
-            });
-            break;
-        }
-        case 'c': {
-            isRandLensAmount = false;
-            isRandShiftPos = false;
-            gridSurf.traverse(function (x, y, index) {
-                charsArr[index].setPos(x, y);
-                charsArr[index].lensRadius = lensParams.radius;
-            });
-            break;
-        }
-    }
-}
-
-
 function initSetupsForCharsGrid(randomize) {
     charsArr.length = 0;
     centersText = ["Center"];
@@ -180,28 +137,15 @@ function initSetupsForCharsGrid(randomize) {
 
     gridSurf.traverse(function (x, y, index) {
         if (index > posForCenterText && centersText.length) {
-            charsArr.push(new CharNode(x + (isRandShiftPos ? random(-20, 20) : 0), y + (isRandShiftPos ? random(-20, 20) : 0), centersText.shift(), loadImage("images/IIT_logo.png"), baseTextSize, fontForSpecialChar));
+            charsArr.push(new CharNode(x + (isRandShiftPos ? random(-10, 10) : 0), y + (isRandShiftPos ? random(-10, 10) : 0), centersText.shift(), logo, baseTextSize, fontForChar));
             charsArr[index].clr = '#d1460e';
-            charsArr[index].lensRadius = isRandLensAmount ? random(300, 700) : lensParams.radius;
+            charsArr[index].lensRadius = isRandLensAmount ? random(300, 600) : lensParams.radius;
         } else {
-            charsArr.push(new CharNode(x + (isRandShiftPos ? random(-20, 20) : 0), y + (isRandShiftPos ? random(-20, 20) : 0), employeesIITname.shift(), employeesIITimage.shift(), baseTextSize, fontForChar));
-            charsArr[index].lensRadius = isRandLensAmount ? random(300, 700) : lensParams.radius;
+            charsArr.push(new CharNode(x + (isRandShiftPos ? random(-10, 10) : 0), y + (isRandShiftPos ? random(-10, 10) : 0), employeesIITname.shift(), employeesIITimage.shift(), baseTextSize, fontForChar));
+            charsArr[index].lensRadius = isRandLensAmount ? random(300, 600) : lensParams.radius;
         }
     });
 }
-
-
-function windowResized() {
-    createCanvas(windowWidth, windowHeight);
-    verticalBorder = windowHeight / 5;
-    horizontalBoder = windowWidth / 5;
-    if (calcRowCol()) {
-        initSetupsForCharsGrid(true);
-    } else {
-        initSetupsForCharsGrid(false);
-    }
-}
-
 
 function calcRowCol() {
     colCountOld = colCount;
@@ -306,9 +250,9 @@ function calcRowCol() {
         }
     }
     if (ratio > 1) {
-        baseTextSize = (windowHeight - 2 * verticalBorder) / (rowCount * 6);
+        baseTextSize = (windowHeight - 2 * verticalBorder) / (rowCount * 6.5);
     } else {
-        baseTextSize = (windowWidth - 2 * horizontalBoder) / (colCount * 6);
+        baseTextSize = (windowWidth - 2 * horizontalBoder) / (colCount * 6.5);
     }
     if (rowCountOld != rowCount || colCountOld != colCount) {
         return true;
@@ -316,24 +260,87 @@ function calcRowCol() {
     return false;
 } //return true when colCount or rowCount has changed
 
-
-
 function fillArray(lengthToBe) {
     employeesIITFitted = employeesIIT.slice(0, lengthToBe);
 }
 
 
-// Point Class
-function Point(x, y) {
-    this.x = x;
-    this.y = y;
-}
-Point.prototype.reset = function (x, y) {
-    this.constructor(x, y);
-};
 
-function randomChar(str) {
-    var chars = str || "ABCDEFGHIJKLMNOPQRSTUVWXTZ";
-    var rnum = Math.floor(Math.random() * chars.length);
-    return chars.substring(rnum, rnum + 1);
+//p5js Methods
+function preload() {
+    "use strict";
+    employeesJson = loadJSON("employees.json", JsonLoaded);
+    logo = loadImage("images/IIT_logo.png");
+}
+
+function setup() {
+    createCanvas(windowWidth, windowHeight);
+    windowResized();
+    lensParams.radius = 450;
+    translate((windowWidth - width) / 2, (windowHeight - height) / 2);
+    initSetupsForCharsGrid(true);
+}
+
+function draw() {
+    createCanvas(windowWidth, windowHeight);
+    background(0);
+    lensParams.magAmount = (lensParams.magAmount + lensParams.magAddition) / 2;
+
+    charsArr.forEach(function (charNodeItem) { charNodeItem.calcNewPos().drawLine(); });
+    charsArr.forEach(function (charNodeItem) { charNodeItem.drawChar(); });
+}
+
+
+
+//Action Handler
+function mousePressed() {
+    lensParams.magAddition = 3;
+}
+
+function mouseReleased() {
+    lensParams.magAddition = 1;
+}
+
+function keyPressed() {
+    switch (key.toLowerCase()) {
+        case 'a':
+            {
+                initSetupsForCharsGrid(true);
+                break;
+            }
+        case 'x': {
+            isRandShiftPos = true;
+            gridSurf.traverse(function (x, y, index) {
+                charsArr[index].setPos(x + random(-10, 10), y + random(-10, 10));
+            });
+            break;
+        }
+        case 'z': {
+            isRandLensAmount = true;
+            gridSurf.traverse(function (x, y, index) {
+                charsArr[index].lensRadius = random(300, 600);
+            });
+            break;
+        }
+        case 'c': {
+            isRandLensAmount = false;
+            isRandShiftPos = false;
+            gridSurf.traverse(function (x, y, index) {
+                charsArr[index].setPos(x, y);
+                charsArr[index].lensRadius = lensParams.radius;
+            });
+            break;
+        }
+    }
+}
+
+function windowResized() {
+    resizeCanvas(windowWidth, windowHeight);
+    verticalBorder = windowHeight / 5;
+    horizontalBoder = windowWidth / 5;
+    if (calcRowCol()) {
+        initSetupsForCharsGrid(true);
+    } else {
+        initSetupsForCharsGrid(true);
+    }
 }

@@ -1,8 +1,9 @@
 // CharNode Class
 function CharNode(x, y, char, img, size, font, clr) {
+    "use strict";
     this.initPos = new Point(x, y);
     this.currPos = new Point(x, y);
-    this.char = char || "";
+    this.char = char || " ";
     this.baseSize = size || 10;
     this.size = this.baseSize;
     this.distFromInitPos = 0;
@@ -16,6 +17,7 @@ function CharNode(x, y, char, img, size, font, clr) {
 }
 
 CharNode.prototype.calcNewPos = function (lensDisposition) {
+    "use strict";
     var distX = mouseX - this.initPos.x;
     var distY = mouseY - this.initPos.y;
 
@@ -43,6 +45,7 @@ CharNode.prototype.calcNewPos = function (lensDisposition) {
 };
 
 CharNode.prototype.setPos = function (x, y) {
+    "use strict";
     this.initPos.reset(x, y);
 
     return this;
@@ -64,6 +67,7 @@ CharNode.prototype.drawLine = function () {
 };
 
 CharNode.prototype.drawChar = function () {
+    "use strict";
     if (!(this.char == ' ' && !this.isDrawEmptyChar)) {
         push();
         imageMode(CENTER, CENTER);
