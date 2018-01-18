@@ -1,5 +1,5 @@
 // CharNode Class
-function CharNode(x, y, char, size, font, clr) {
+function CharNode(x, y, char, img, size, font, clr) {
     this.initPos = new Point(x, y);
     this.currPos = new Point(x, y);
     this.char = char || "";
@@ -12,6 +12,7 @@ function CharNode(x, y, char, size, font, clr) {
     this.clr = clr || '#FFF';
     this.lensRadius = 80;
     this.isDrawEmptyChar = false;
+    this.img = img;
 }
 
 CharNode.prototype.calcNewPos = function (lensDisposition) {
@@ -65,22 +66,23 @@ CharNode.prototype.drawLine = function () {
 CharNode.prototype.drawChar = function () {
     if (!(this.char == ' ' && !this.isDrawEmptyChar)) {
         push();
+        imageMode(CENTER);
         fill(this.clr);
         textFont(this.fontName, this.size);
         if (this.char != "Center") {
-            image(img,
-                this.currPos.x - this.size * 2.5,
-                this.currPos.y - this.size * 5.7,
-                img.width * this.size / 50,
-                img.height * this.size / 50);
+            image(this.img,
+                this.currPos.x,
+                this.currPos.y - this.size * 1.5,
+                this.size*5.5,
+                this.size*5.5);
             textAlign(CENTER, TOP);
-            text(this.char, this.currPos.x, this.currPos.y);
+            text(this.char, this.currPos.x, this.currPos.y + this.size * 1.5);
         } else {
-            image(logo,
-                this.currPos.x - this.size,
-                this.currPos.y - this.size * 1.45,
-                img.width * this.size / 130,
-                img.height * this.size / 130);
+            image(this.img,
+                this.currPos.x,
+                this.currPos.y,
+                this.size*2,
+                this.size*2);
         }
         pop();
     }

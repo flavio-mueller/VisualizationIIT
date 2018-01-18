@@ -51,6 +51,7 @@ var charsArr = [];
 var gridSurf;
 
 var img;
+var img2;
 var logo;
 var employeesJson;
 var employeesIIT = [];
@@ -61,12 +62,15 @@ var employeesIITimage = [];
 var rowCount = 1;
 var colCount = 1;
 var employees;
+var rowCountOld;
+var colCountOld;
 
 
 
 function preload() {
     employeesJson = loadJSON("employees.json", JsonLoaded);
     logo = loadImage("images/IIT_logo.png");
+    img2 = loadImage("images/FlavioMueller.jpg");
 }
 
 function setup() {
@@ -85,7 +89,6 @@ function JsonLoaded(data) {
     for (var i = employeesIIT.length; i < 80; i++) {
         append(employeesIIT, { "name": "", "image": "person.png" });
     }
-    img = loadImage("images/person.png");
 }
 
 function fillEmployeesArray() {
@@ -93,7 +96,7 @@ function fillEmployeesArray() {
     employeesIITimage = [];
     employeesIITFitted.forEach(function (element) {
         append(employeesIITname, element.name);
-        append(employeesIITimage, element.image);
+        append(employeesIITimage, loadImage("images/" + element.image));
     });
 }
 
@@ -160,14 +163,13 @@ function keyPressed() {
 }
 
 
-function initSetupsForCharsGrid(randomize) {
+function initSetupsForCharsGrid() {
     charsArr.length = 0;
     centersText = ["Center"];
 
-    calcRowCol();
-
-    if (randomize == true) {
+    if (calcRowCol()) {
         randomizeArray(employeesIITFitted);
+        console.debug("row or col changed");
     }
 
     fillEmployeesArray();
@@ -181,15 +183,14 @@ function initSetupsForCharsGrid(randomize) {
     // for visually centering text in chars rect
     var posForCenterText = ~~((gridSurf.rowCount - 1) / 2) * gridSurf.colCount - 1 + ~~((gridSurf.colCount - centersText.length) / 2);
 
-    console.debug(employeesIITname);
 
     gridSurf.traverse(function (x, y, index) {
         if (index > posForCenterText && centersText.length) {
-            charsArr.push(new CharNode(x + (isRandShiftPos ? random(-20, 20) : 0), y + (isRandShiftPos ? random(-20, 20) : 0), centersText.shift(), baseTextSize + baseTextSize * 4, fontForSpecialChar));
+            charsArr.push(new CharNode(x + (isRandShiftPos ? random(-20, 20) : 0), y + (isRandShiftPos ? random(-20, 20) : 0), centersText.shift(), loadImage("images/IIT_logo.png"), baseTextSize + baseTextSize * 4, fontForSpecialChar));
             charsArr[index].clr = '#d1460e';
             charsArr[index].lensRadius = isRandLensAmount ? random(300, 700) : lensParams.radius;
         } else {
-            charsArr.push(new CharNode(x + (isRandShiftPos ? random(-20, 20) : 0), y + (isRandShiftPos ? random(-20, 20) : 0), employeesIITname.shift(), baseTextSize, fontForChar));
+            charsArr.push(new CharNode(x + (isRandShiftPos ? random(-20, 20) : 0), y + (isRandShiftPos ? random(-20, 20) : 0), employeesIITname.shift(), employeesIITimage.shift(), baseTextSize, fontForChar));
             charsArr[index].lensRadius = isRandLensAmount ? random(300, 700) : lensParams.radius;
         }
     });
@@ -199,11 +200,14 @@ function initSetupsForCharsGrid(randomize) {
 function windowResized() {
     createCanvas(windowWidth, windowHeight);
     lensParams.radius = windowWidth / 4.26;
-    initSetupsForCharsGrid(false);
+    border = windowWidth * borderMultiplier;
+    initSetupsForCharsGrid(true);
 }
 
 
 function calcRowCol() {
+    colCountOld = colCount;
+    rowCountOld = rowCount;
     var ratio = windowWidth / windowHeight;
 
     if (ratio > 1.7) { //vier differenz
@@ -303,12 +307,16 @@ function calcRowCol() {
             fillArray(117);
         }
     }
-}
+
+    if (rowCountOld != rowCount || colCountOld != colCount) {
+        return true;
+    }
+    return false;
+} //return true when colCount or rowCount has changed
 
 
 
 function fillArray(lengthToBe) {
-    console.debug(employeesIITFitted);
     employeesIITFitted = employeesIIT.slice(0, lengthToBe);
 }
 
