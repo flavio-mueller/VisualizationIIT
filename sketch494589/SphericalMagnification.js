@@ -37,8 +37,7 @@ var lensParams = {
     magAmount: 2,
     magAddition: 1
 };
-var baseTextSize;
-var baseTextSizeMultiplier = 0.011;
+var baseTextSize = 20;
 var horizontalBoder;
 var verticalBorder;
 
@@ -74,11 +73,7 @@ function preload() {
 }
 
 function setup() {
-    createCanvas(windowWidth, windowHeight);
-    baseTextSize = windowWidth * baseTextSizeMultiplier;
-    verticalBorder = windowHeight / 5;
-    horizontalBoder = windowWidth / 5;
-    lensParams.radius = windowWidth / 4.26;
+    windowResized();
     translate((windowWidth - width) / 2, (windowHeight - height) / 2);
     initSetupsForCharsGrid(true);
 }
@@ -132,8 +127,6 @@ function keyPressed() {
     switch (key.toLowerCase()) {
         case 'a':
             {
-                randomizeArray(employeesIITFitted);
-                fillEmployeesArray();
                 initSetupsForCharsGrid(true);
                 break;
             }
@@ -164,11 +157,11 @@ function keyPressed() {
 }
 
 
-function initSetupsForCharsGrid() {
+function initSetupsForCharsGrid(randomize) {
     charsArr.length = 0;
     centersText = ["Center"];
 
-    if (calcRowCol()) {
+    if (randomize) {
         randomizeArray(employeesIITFitted);
     }
 
@@ -186,7 +179,7 @@ function initSetupsForCharsGrid() {
 
     gridSurf.traverse(function (x, y, index) {
         if (index > posForCenterText && centersText.length) {
-            charsArr.push(new CharNode(x + (isRandShiftPos ? random(-20, 20) : 0), y + (isRandShiftPos ? random(-20, 20) : 0), centersText.shift(), loadImage("images/IIT_logo.png"), baseTextSize + baseTextSize * 4, fontForSpecialChar));
+            charsArr.push(new CharNode(x + (isRandShiftPos ? random(-20, 20) : 0), y + (isRandShiftPos ? random(-20, 20) : 0), centersText.shift(), loadImage("images/IIT_logo.png"), baseTextSize, fontForSpecialChar));
             charsArr[index].clr = '#d1460e';
             charsArr[index].lensRadius = isRandLensAmount ? random(300, 700) : lensParams.radius;
         } else {
@@ -202,7 +195,11 @@ function windowResized() {
     lensParams.radius = windowWidth / 4.26;
     verticalBorder = windowHeight / 5;
     horizontalBoder = windowWidth / 5;
-    initSetupsForCharsGrid(true);
+    if (calcRowCol()) {
+        initSetupsForCharsGrid(true);
+    } else {
+        initSetupsForCharsGrid(false);
+    }
 }
 
 
@@ -308,7 +305,11 @@ function calcRowCol() {
             fillArray(117);
         }
     }
-
+    if (ratio > 1) {
+        baseTextSize = (windowHeight - 2 * verticalBorder) / (rowCount * 6);
+    } else {
+        baseTextSize = (windowWidth - 2 * horizontalBoder) / (colCount * 6);
+    }
     if (rowCountOld != rowCount || colCountOld != colCount) {
         return true;
     }

@@ -80,9 +80,9 @@ CharNode.prototype.drawChar = function () {
         } else {
             image(this.img,
                 this.currPos.x,
-                this.currPos.y - this.size/3,
-                this.size * 2,
-                this.size * 2);
+                this.currPos.y - this.size,
+                this.size * 5.5,
+                this.size * 5.5);
         }
         pop();
     }
