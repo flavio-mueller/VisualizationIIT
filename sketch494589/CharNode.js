@@ -3,7 +3,7 @@ function CharNode(x, y, char, img, size, font, clr) {
     "use strict";
     this.initPos = new Point(x, y);
     this.currPos = new Point(x, y);
-    this.char = char || " ";
+    this.char = char || "";
     this.baseSize = size || 10;
     this.size = this.baseSize;
     this.distFromInitPos = 0;

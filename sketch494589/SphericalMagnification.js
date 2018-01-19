@@ -93,6 +93,7 @@ function JsonLoaded(data) {
     "use strict";
     employeesIIT = data.IIT;
     employees = employeesIIT.length;
+    console.debug(employees);
     for (var i = employeesIIT.length; i < 80; i++) {
         append(employeesIIT, { "name": "", "image": "person.png" });
     }
@@ -101,7 +102,11 @@ function JsonLoaded(data) {
 function fillEmployeesArray() {
     employeesIITname = [];
     employeesIITimage = [];
+    console.debug("new");
     employeesIITFitted.forEach(function (element) {
+    if (element.name != "") {
+        console.debug("employee");
+    };
         append(employeesIITname, element.name);
         append(employeesIITimage, loadImage("images/" + element.image));
     });
@@ -183,10 +188,10 @@ function calcRowCol() {
             colCount = 5;
             rowCount = 3;
             fillArray(14);
-        } else if (employees < 45) {
+        } else if (employees < 35) {
             colCount = 7;
             rowCount = 5;
-            fillArray(44);
+            fillArray(34);
         } else if (employees < 63) {
             colCount = 9;
             rowCount = 7;
@@ -217,10 +222,10 @@ function calcRowCol() {
             colCount = 3;
             rowCount = 5;
             fillArray(14);
-        } else if (employees < 45) {
+        } else if (employees < 35) {
             colCount = 5;
             rowCount = 7;
-            fillArray(44);
+            fillArray(34);
         } else if (employees < 63) {
             colCount = 7;
             rowCount = 9;
@@ -231,7 +236,7 @@ function calcRowCol() {
             fillArray(98);
         }
     } else {
-        if (employees < 0.45) {
+        if (employees < 5) {
             colCount = 1;
             rowCount = 5;
             fillArray(4);
@@ -265,6 +270,7 @@ function calcRowCol() {
 } //return true when colCount or rowCount has changed
 
 function fillArray(lengthToBe) {
+    console.debug(employees, lengthToBe);
     employeesIITFitted = employeesIIT.slice(0, lengthToBe);
 }
 
