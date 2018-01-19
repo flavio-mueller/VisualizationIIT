@@ -51,9 +51,11 @@ var verticalBorder;
 
 //font
 var fontForChar = 'Arial';
+var baseTextSize = 20;
 
 //helper
 var charsArr = [];
+var centersText = [];
 var gridSurf;
 var employees;
 var logo;
@@ -116,6 +118,7 @@ function randomizeArray(a) {
 }
 
 function initSetupsForCharsGrid(randomize) {
+    "use strict";
     charsArr.length = 0;
     centersText = ["Center"];
 
@@ -148,6 +151,7 @@ function initSetupsForCharsGrid(randomize) {
 }
 
 function calcRowCol() {
+    "use strict";
     colCountOld = colCount;
     rowCountOld = rowCount;
     var ratio = windowWidth / windowHeight;
@@ -254,7 +258,7 @@ function calcRowCol() {
     } else {
         baseTextSize = (windowWidth - 2 * horizontalBoder) / (colCount * 6.5);
     }
-    if (rowCountOld != rowCount || colCountOld != colCount) {
+    if (rowCountOld !== rowCount || colCountOld !== colCount) {
         return true;
     }
     return false;

@@ -3,7 +3,7 @@ function CharNode(x, y, char, img, size, font, clr) {
     "use strict";
     this.initPos = new Point(x, y);
     this.currPos = new Point(x, y);
-    this.char = char || "";
+    this.char = char || " ";
     this.baseSize = size || 10;
     this.size = this.baseSize;
     this.distFromInitPos = 0;
@@ -52,7 +52,7 @@ CharNode.prototype.setPos = function (x, y) {
 };
 
 CharNode.prototype.drawLine = function () {
-    if (!(this.char == ' ' && !this.isDrawEmptyChar)) {
+    if (!(this.char === ' ' && !this.isDrawEmptyChar)) {
         if (this.distFromInitPos <= this.lensRadius) {
             var lineOpacity = map(this.distFromInitPos, 0, this.lensRadius, 200, 0);
 
@@ -68,7 +68,7 @@ CharNode.prototype.drawLine = function () {
 
 CharNode.prototype.drawChar = function () {
     "use strict";
-    if (!(this.char == ' ' && !this.isDrawEmptyChar)) {
+    if (!(this.char === ' ' && !this.isDrawEmptyChar)) {
         push();
         imageMode(CENTER, CENTER);
         fill(this.clr);
