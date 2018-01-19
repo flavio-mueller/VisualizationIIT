@@ -388,7 +388,7 @@ function loadEmployees() {
                },
                {
                  "name": "Philipp Lüthi",
-                 "image": "person.jpg"
+                 "image": "person.png"
                },
                {
                  "name": "Thibault Gagnaux",
