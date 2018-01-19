@@ -152,7 +152,7 @@ function calcRowCol() {
     rowCountOld = rowCount;
     var ratio = windowWidth / windowHeight;
 
-    if (ratio > 1.7) { //vier differenz
+    if (ratio > 1.9) { //vier differenz
         if (employees < 5) {
             colCount = 5;
             rowCount = 1;
@@ -227,7 +227,7 @@ function calcRowCol() {
             fillArray(98);
         }
     } else {
-        if (employees < 5) {
+        if (employees < 0.45) {
             colCount = 1;
             rowCount = 5;
             fillArray(4);
@@ -294,7 +294,7 @@ function draw() {
 
 //Action Handler
 function mousePressed() {
-    lensParams.magAddition = 3;
+    lensParams.magAddition = 2.5;
 }
 
 function mouseReleased() {
