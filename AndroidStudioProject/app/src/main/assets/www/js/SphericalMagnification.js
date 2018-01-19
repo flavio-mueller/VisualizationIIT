@@ -307,91 +307,95 @@ function windowResized() {
 function loadEmployees() {
     return [
                {
-                 "name": "Fabian Affolter",
-                 "image": "person.png"
+                 "name": "Doris Agotai",
+                 "image": "agotai_doris.jpg"
                },
                {
-                 "name": "Doris Agotai",
-                 "image": "person.png"
+                 "name": "Jonas Oesch",
+                 "image": "oesch_jonas.jpg"
                },
                {
                  "name": "Moritz Dietsche",
-                 "image": "person.png"
+                 "image": "dietsche_moritz.jpg"
+               },
+               {
+                 "name": "Ulrike Schock",
+                 "image": "schock_ulrike.jpg"
+               },
+               {
+                 "name": "Filip Schramka",
+                 "image": "schramka_filip.jpg"
+               },
+               {
+                 "name": "Fabian Schwander",
+                 "image": "schwander_fabian.jpg"
+               },
+               {
+                 "name": "Alireza Shojaifar",
+                 "image": "shojaifar_alireza.jpg"
+               },
+               {
+                 "name": "Melanie Stade",
+                 "image": "stade_melanie.jpg"
+               },
+               {
+                 "name": "Ronnie Schaniel",
+                 "image": "schanniel_ronnie.jpg"
+               },
+               {
+                 "name": "Kathrin Köbel",
+                 "image": "koebel_kathrin.jpg"
                },
                {
                  "name": "Samuel Fricker",
-                 "image": "person.png"
+                 "image": "fricker_samuel.jpg"
+               },
+               {
+                 "name": "Simon Schubiger",
+                 "image": "schubiger_simon.jpg"
+               },
+               {
+                 "name": "Yuliyan Maksimov",
+                 "image": "maksimov_yuliyan.jpg"
+               },
+               {
+                 "name": "Katja Lapadula",
+                 "image": "lapadula_katja.jpg"
+               },
+               {
+                 "name": "Fiona Nüesch",
+                 "image": "nuesch_fiona.jpg"
+               },
+               {
+                 "name": "Matej Zmitko",
+                 "image": "zmitko_matej.jpg"
+               },
+               {
+                 "name": "Norbert Seyff",
+                 "image": "seyff_norbert.jpg"
+               },
+               {
+                 "name": "Fabian Affolter",
+                 "image": "affolter_fabian.jpg"
+               },
+               {
+                 "name": "Andrea Zirn",
+                 "image": "zirn_andrea.jpg"
+               },
+               {
+                 "name": "Dustin Wüst",
+                 "image": "wueest_dustin.jpg"
+               },
+               {
+                 "name": "Philipp Lüthi",
+                 "image": "person.jpg"
                },
                {
                  "name": "Thibault Gagnaux",
                  "image": "person.png"
                },
                {
-                 "name": "Kathrin Köbel",
-                 "image": "person.png"
-               },
-               {
-                 "name": "Katja Lapadula",
-                 "image": "person.png"
-               },
-               {
-                 "name": "Philipp Lüthy",
-                 "image": "person.png"
-               },
-               {
-                 "name": "Yuliyan Maksimov",
-                 "image": "person.png"
-               },
-               {
-                 "name": "Fiona Nüesch",
-                 "image": "person.png"
-               },
-               {
-                 "name": "Jonas Ösch",
-                 "image": "person.png"
-               },
-               {
-                 "name": "Ronnie Schaniel",
-                 "image": "person.png"
-               },
-               {
-                 "name": "Ulrike Schock",
-                 "image": "person.png"
-               },
-               {
-                 "name": "Flip Schramka",
-                 "image": "person.png"
-               },
-               {
-                 "name": "Simon Schubiger",
-                 "image": "person.png"
-               },
-               {
-                 "name": "Fabian Schwander",
-                 "image": "person.png"
-               },
-               {
-                 "name": "Norbert Seyff",
-                 "image": "person.png"
-               },
-               {
-                 "name": "Alireza Shojaifar",
-                 "image": "person.png"
-               },
-               {
-                 "name": "Melanie Stade",
-                 "image": "person.png"
-               },
-               {
-                 "name": "Dustin Wüst",
-                 "image": "person.png"
-               },
-               {
-                 "name": "Andrea Zirn",
-                 "image": "person.png"
-               },
-               {
-                 "name": "Matej Zmitko",
+                 "name": "Flavio Müller",
                  "image": "person.png"
                }
              ];
