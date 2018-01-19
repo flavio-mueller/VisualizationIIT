@@ -1,4 +1,4 @@
-//#region credits
+﻿//#region credits
 
 //////////////////////////////////////////////////////////////////////////
 //                       //                                             //
@@ -74,6 +74,10 @@ var rowCountOld;
 var colCountOld;
 
 
+var icons = ["augmented_virtual_mixed_reality.png","computer_graphics.png","computer_graphics2.png","design_and_technology.png","game_design_and_gamification.png","human_computer_interaction.png","information_visualization.png","interaction_design.png","requirements_engineering.png","user_centered_design.png","visual_analytics.png"];
+
+
+
 
 //Helper Classes
 // Point Class
@@ -89,14 +93,6 @@ Point.prototype.reset = function (x, y) {
 
 
 //private helper methods
-function JsonLoaded(data) {
-    "use strict";
-    employeesIIT = data.IIT;
-    employees = employeesIIT.length;
-    for (var i = employeesIIT.length; i < 80; i++) {
-        append(employeesIIT, { "name": "", "image": "person.png" });
-    }
-}
 
 function fillEmployeesArray() {
     employeesIITname = [];
@@ -273,7 +269,12 @@ function fillArray(lengthToBe) {
 //p5js Methods
 function preload() {
     "use strict";
-    employeesJson = loadJSON("employees.json", JsonLoaded);
+    employeesIIT = loadEmployees();
+    employees = employeesIIT.length;
+    for (var i = employeesIIT.length; i < 80; i++) {
+        append(employeesIIT, { "name": "icon", "image": random(icons)});
+    }
+
     logo = loadImage("images/IIT_logo.png");
 }
 
@@ -347,4 +348,103 @@ function windowResized() {
     } else {
         initSetupsForCharsGrid(true);
     }
+}
+
+
+function loadEmployees() {
+    return [
+        {
+            "name": "Doris Agotai",
+            "image": "agotai_doris.jpg"
+        },
+        {
+            "name": "Jonas Oesch",
+            "image": "oesch_jonas.jpg"
+        },
+        {
+            "name": "Moritz Dietsche",
+            "image": "dietsche_moritz.jpg"
+        },
+        {
+            "name": "Ulrike Schock",
+            "image": "schock_ulrike.jpg"
+        },
+        {
+            "name": "Filip Schramka",
+            "image": "schramka_filip.jpg"
+        },
+        {
+            "name": "Fabian Schwander",
+            "image": "schwander_fabian.jpg"
+        },
+        {
+            "name": "Alireza Shojaifar",
+            "image": "shojaifar_alireza.jpg"
+        },
+        {
+            "name": "Melanie Stade",
+            "image": "stade_melanie.jpg"
+        },
+        {
+            "name": "Ronnie Schaniel",
+            "image": "schanniel_ronnie.jpg"
+        },
+        {
+            "name": "Kathrin Köbel",
+            "image": "koebel_kathrin.jpg"
+        },
+        {
+            "name": "Samuel Fricker",
+            "image": "fricker_samuel.jpg"
+        },
+        {
+            "name": "Simon Schubiger",
+            "image": "schubiger_simon.jpg"
+        },
+        {
+            "name": "Yuliyan Maksimov",
+            "image": "maksimov_yuliyan.jpg"
+        },
+        {
+            "name": "Katja Lapadula",
+            "image": "lapadula_katja.jpg"
+        },
+        {
+            "name": "Fiona Nüesch",
+            "image": "nuesch_fiona.jpg"
+        },
+        {
+            "name": "Matej Zmitko",
+            "image": "zmitko_matej.jpg"
+        },
+        {
+            "name": "Norbert Seyff",
+            "image": "seyff_norbert.jpg"
+        },
+        {
+            "name": "Fabian Affolter",
+            "image": "affolter_fabian.jpg"
+        },
+        {
+            "name": "Andrea Zirn",
+            "image": "zirn_andrea.jpg"
+        },
+        {
+            "name": "Dustin Wüst",
+            "image": "wueest_dustin.jpg"
+        },
+        {
+            "name": "Philipp Lüthi",
+            "image": "person.png"
+        },
+        {
+            "name": "Thibault Gagnaux",
+            "image": "person.png"
+        },
+        {
+            "name": "Flavio Müller",
+            "image": "person.png"
+        }
+    ];
+
 }

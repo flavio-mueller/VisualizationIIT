@@ -38,7 +38,7 @@
 var lensParams = {
     radius: 450,
     magAmount: 2,
-    magAddition: 1
+    magAddition: 0
 };
 
 //border Parameters
@@ -68,6 +68,8 @@ var colCount = 1;
 var rowCountOld;
 var colCountOld;
 
+var icons = ["augmented_virtual_mixed_reality.png","computer_graphics.png","computer_graphics2.png","design_and_technology.png","game_design_and_gamification.png","human_computer_interaction.png","information_visualization.png","interaction_design.png","requirements_engineering.png","user_centered_design.png","visual_analytics.png"];
+
 
 
 //Helper Classes
@@ -84,14 +86,6 @@ Point.prototype.reset = function (x, y) {
 
 
 //private helper methods
-function JsonLoaded(data) {
-    "use strict";
-    employeesIIT = data.IIT;
-    employees = employeesIIT.length;
-    for (var i = employeesIIT.length; i < 80; i++) {
-        append(employeesIIT, { "name": "", "image": "person.png" });
-    }
-}
 
 function fillEmployeesArray() {
     employeesIITname = [];
@@ -264,6 +258,15 @@ function fillArray(lengthToBe) {
 }
 
 
+function mousePressed() {
+    lensParams.magAddition = 1.5;
+}
+
+function mouseReleased() {
+    lensParams.magAddition = 0;
+}
+
+
 
 //p5js Methods
 function preload() {
@@ -271,7 +274,7 @@ function preload() {
     employeesIIT = loadEmployees();
         employees = employeesIIT.length;
         for (var i = employeesIIT.length; i < 80; i++) {
-            append(employeesIIT, { "name": "", "image": "person.png" });
+            append(employeesIIT, { "name": "icon", "image": random(icons)});
         }
     logo = loadImage("images/IIT_logo.png");
 }

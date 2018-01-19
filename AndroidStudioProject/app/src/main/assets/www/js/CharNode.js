@@ -73,7 +73,19 @@ CharNode.prototype.drawChar = function () {
         imageMode(CENTER, CENTER);
         fill(this.clr);
         textFont(this.fontName, this.size * 0.75);
-        if (this.char != "Center") {
+        if (this.char == "Center") {
+            image(this.img,
+                this.currPos.x,
+                this.currPos.y - this.size,
+                this.size * 5.5,
+                this.size * 5.5);
+        }else if(this.char == "icon"){
+            image(this.img,
+                this.currPos.x,
+                this.currPos.y - this.size,
+                this.size * 5.5,
+                this.size * 5.5);
+        }else {
             image(this.img,
                 this.currPos.x,
                 this.currPos.y - this.size * 1.5,
@@ -81,13 +93,8 @@ CharNode.prototype.drawChar = function () {
                 this.size * 5.5);
             textAlign(CENTER, TOP);
             text(this.char, this.currPos.x, this.currPos.y + this.size * 1.5);
-        } else {
-            image(this.img,
-                this.currPos.x,
-                this.currPos.y - this.size,
-                this.size * 5.5,
-                this.size * 5.5);
         }
+
         pop();
     }
 
