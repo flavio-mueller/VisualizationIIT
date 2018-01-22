@@ -399,7 +399,7 @@ function loadEmployees() {
                },
                {
                  "name": "Flavio Müller",
-                 "image": "person.png"
+                 "image": "mueller_flavio.jpg"
                }
              ];
 
