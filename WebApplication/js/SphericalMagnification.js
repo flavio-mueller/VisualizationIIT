@@ -289,8 +289,10 @@ function setup() {
 function draw() {
     createCanvas(windowWidth, windowHeight);
     background(0);
+    textSize(baseTextSize);
+    fill(255,255,255);
+    text("press a, x, z; clear with c",baseTextSize,baseTextSize);
     lensParams.magAmount = (lensParams.magAmount + lensParams.magAddition) / 2;
-
     charsArr.forEach(function (charNodeItem) { charNodeItem.calcNewPos().drawLine(); });
     charsArr.forEach(function (charNodeItem) { charNodeItem.drawChar(); });
 }
@@ -430,7 +432,7 @@ function loadEmployees() {
             "image": "zirn_andrea.jpg"
         },
         {
-            "name": "Dustin Wüst",
+            "name": "Dustin Wüest",
             "image": "wueest_dustin.jpg"
         },
         {

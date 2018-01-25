@@ -386,7 +386,7 @@ function loadEmployees() {
                  "image": "zirn_andrea.jpg"
                },
                {
-                 "name": "Dustin Wüst",
+                 "name": "Dustin Wüest",
                  "image": "wueest_dustin.jpg"
                },
                {
