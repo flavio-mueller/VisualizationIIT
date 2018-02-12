@@ -437,11 +437,11 @@ function loadEmployees() {
         },
         {
             "name": "Philipp Lüthi",
-            "image": "person.png"
+            "image": "luethi_philipp.jpg"
         },
         {
             "name": "Thibault Gagnaux",
-            "image": "person.png"
+            "image": "gagnaux_thibault.jpg"
         },
         {
             "name": "Flavio Müller",
